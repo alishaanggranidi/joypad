@@ -1,4 +1,3 @@
-/* Basic Styles for Popups */
 .fixed {
   position: fixed;
 }
@@ -147,10 +146,13 @@
 
 /* Modal and Popup Buttons */
 button {
-  cursor: pointer;
+  padding: 8px 12px;
+    background-color: #A98EB2;
+  color: white;
+  padding: 10px 20px;
   border: none;
-  outline: none;
-  transition: background-color 0.2s ease-in-out;
+  border-radius: 25px;
+  cursor: pointer;
 }
 
 button:hover {
@@ -188,28 +190,9 @@ button.w-full:hover {
   background-color: #f3f4f6;
 }
 
-/* Table styles for reservation list */
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th, td {
-  padding: 1rem;
-  border: 1px solid #d1d5db;
-  text-align: left;
-}
-
-thead {
-  background-color: #f9fafb;
-}
-
-tbody tr:hover {
-  background-color: #f3f4f6;
-}
-
-/* Header */
-header {
-  background-color: #f9fafb;
-  padding: 1rem;
+.card-style {
+  background-color: #D0C1D5; 
+  border-radius: 1.5rem; 
+  padding: 1.5rem; 
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); 
 }
