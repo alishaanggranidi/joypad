@@ -41,11 +41,18 @@
   }
 
   .min-h-screen {
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
     background: linear-gradient(
       180deg,
       rgba(169, 142, 178, 0.8) 64.49999809265137%,
       rgba(201, 141, 168, 0.68) 100%
     );
+    background-attachment: fixed;
+    background-size: 2000;
+    background-repeat: no-repeat;
+    background-position: center;
+    max-height: 500vh; 
   }
   
   .rating, .reviews {
@@ -112,10 +119,7 @@
   /* styles/rating.css */
 
 .rating-container {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  margin-top: 100px;
 }
 
 .rating-card, .review-card {
@@ -265,9 +269,10 @@
 }
 
 .rating-title {
-  color: #374151;
+  color: #505050;
   font-size: 1.5rem;
-  margin-bottom: 1rem;
+  font-weight: 559;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .rating-summary {
@@ -278,12 +283,16 @@
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
+  font-size: 3.5rem;
+  font-weight: 570;
+  color: #505050;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .score {
   font-size: 3rem;
-  font-weight: 500;
-  color: #374151;
+  font-weight: 480;
+  color: #505050;
 }
 
 .star-large {
@@ -293,7 +302,9 @@
 }
 
 .review-count {
-  color: #6b7280;
+  color: #505050;
+  font-weight: 250;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   margin-top: 0.5rem;
 }
 
@@ -341,7 +352,9 @@
   flex: none;
   width: 2rem;
   text-align: right;
-  color: #6b7280;
+  color: #505050;
+  font-weight: 250;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .review-item {
@@ -446,7 +459,7 @@
   width: 100%;
   padding: 12px;
   border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border-radius: 20px;
   margin-bottom: 16px;
   font-size: 14px;
 }
@@ -456,7 +469,7 @@
   height: 120px;
   padding: 12px;
   border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border-radius: 20px;
   resize: none;
   font-size: 14px;
   margin-bottom: 24px;
@@ -473,7 +486,7 @@
   background: #ec4899;
   color: white;
   padding: 8px 24px;
-  border-radius: 8px;
+  border-radius: 20px;
   border: none;
   font-weight: 500;
   cursor: pointer;
@@ -484,6 +497,21 @@
   background: #db2777;
 }
 .button {
+  position: fixed;
+  bottom: 20px; /* Jarak tombol dari bawah */
+  right: 20px; /* Jarak tombol dari kanan */
+  background-color: #F472B6;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 1000; /* Agar selalu di atas elemen lain */
+}
+
+/* .button {
   position: relative;
   margin-bottom: 150px;
   top: 1.30px;
@@ -497,4 +525,13 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
- }
+ } jangan dihapus */
+ 
+ .text-shadow-custom {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.font-weight {
+  font-weight: 250px;
+}
+

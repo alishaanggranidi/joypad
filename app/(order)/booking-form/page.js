@@ -29,9 +29,9 @@ const Booking = () => {
                     <span>di sini subtotalnya</span>
                 </div>
             </div>
-            <div className="flex justify-between mt-8">
-                    <button>BACK</button>
-                    <button>NEXT</button>
+            <div className="flex justify-end mt-8">
+                <button className="customButton">BACK</button>
+                <button className="customButton">NEXT</button>
             </div>
             </main>
         </div>

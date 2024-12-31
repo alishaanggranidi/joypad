@@ -1,12 +1,16 @@
-import Header from "../../header";
-
+import "../../../styles/notification.css";
+import Header from "../../header.js";
+import Footer from "../../footer.js";
 const Notification = () => {
-    <div>
-        <Header/>
+    return(
         <div>
-            halo
+            <Header/>
+            <div>
+                halo
+            </div>
+            <Footer/>
         </div>
-    </div>
+    );
 };
 
 export default Notification;

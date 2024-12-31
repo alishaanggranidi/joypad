@@ -52,15 +52,12 @@ const RegularRoom = () => {
                     </div>
                     <div>
                         <img src="/image/psplus.png" alt="psplus"/>
-                        <h3>PS Plus</h3>
                     </div>
                     <div>
                         <img src="/image/netflix.png" alt="netflix"/>
-                        <h3>Netflix</h3>
                     </div>
                     <div>
                         <img src="/image/youtube.png" alt="youtube"/>
-                        <h3>YouTube</h3>
                     </div>
                 </div>
             );
@@ -100,7 +97,9 @@ const RegularRoom = () => {
                         <p className="room-price">Rp. 20.000/hour</p>
                     </div>
                     <div>
-                        <button className="book-btn">BOOK</button>
+                        <Link href="/booking-form">
+                            <button className="book-btn">BOOK</button>
+                        </Link>
                     </div>
                 </div>
                 <div className="facilities">

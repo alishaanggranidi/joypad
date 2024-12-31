@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react';
+import debounce from 'lodash/debounce';
 import "../../../styles/review.css";
 import Header from "../../header.js";
 import Footer from "../../footer.js";
@@ -18,7 +19,7 @@ const Review = () => {
     { stars: 1, count: 0 }
   ];
 
-  const reviews = [
+  const [reviews, setReviews] = useState([
     {
       id: 1,
       author: "Fadhilahrtk",
@@ -64,7 +65,15 @@ const Review = () => {
       date: "7 month ago",
       avatar: "/api/placeholder/40/40"
     },
-  ];
+  ]);
+  const addReview = (newReview) => {
+    setReviews((prevReviews) => [
+      ...prevReviews,
+      { ...newReview, id: prevReviews.length + 1, date: "Just now", avatar: "/api/placeholder/40/40" },
+    ]);
+    console.log("Review submitted:", review);
+  };  
+  
 
   const calculateAverageRating = () => {
     const totalStars = ratings.reduce((acc, curr) => acc + (curr.stars * curr.count), 0);
@@ -84,47 +93,74 @@ const Review = () => {
 
   const ReviewCard = ({ review, index }) => (
     <div 
-      className="bg-white rounded-[28px] p-6 mb-8 shadow-lg"
-      style={{
-        background: 'rgba(235, 223, 239, 0.95)',
-        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.08)',
-        transform: `scale(${index % 2 === 0 ? '1.02' : '1'})`,
-      }}
-    >
-      <div className="flex justify-between items-start mb-4">
-        <div className="flex items-center gap-4">
-          <img
-            src={'image/user.png'}
-            alt={`${review.author}'s avatar`}
-            className="w-10 h-10 rounded-full"
-            style={{ filter: 'grayscale(100%) brightness(40%)' }}
-          />
-          <div>
-            <h3 className="text-gray-800 font-medium mb-1">{review.author}</h3>
-            {renderStars(review.rating)}
+    className="rounded-[20px] p-5 mb-4 transition-transform duration-300 hover:scale-[1.02] cursor-pointer"
+    style={{
+      background: 'rgba(235, 223, 239, 0.95)',
+      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
+      transform: 'scale(1)', // Base scale
+    }}
+  >
+    <div className="flex justify-between items-start mb-3">
+      <div className="flex items-center gap-3">
+        <img
+          src={'image/user.png'}
+          alt={`${review.author}'s avatar`}
+          className="w-8 h-8 rounded-full"
+          style={{ 
+            filter: 'brightness(0) saturate(100%) invert(31%) sepia(0%) saturate(0%) hue-rotate(152deg) brightness(98%) contrast(93%)'
+          }}
+        />
+        <div className="flex flex-col -gap-1">
+          <h3 className="text-[#686767] font-medium font-weight text-base mb-0 text-shadow-custom">{review.author}</h3>
+          <div className="flex">
+            {[...Array(5)].map((_, index) => (
+              <span key={index} className="text-yellow-400 text-base leading-none">
+                {index < review.rating ? "★" : "☆"}
+              </span>
+            ))}
           </div>
         </div>
-        <span className="text-gray-500 text-sm">{review.date}</span>
       </div>
-      <h4 className="text-lg font-medium text-gray-800 mb-2">{review.title}</h4>
-      <p className="text-gray-600 leading-relaxed">{review.content}</p>
+      <span className="text-[#686767] text-sm mt-2.5">{review.date}</span>
     </div>
+    <h4 className="text-base font-semibold text-[#686767] mb-2">{review.title}</h4>
+<p className="text-[#686767] text-sm leading-relaxed font-normal">{review.content}</p>
+  </div>
   );
 
-  const ReviewModal = () => (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  const ReviewModal = () => {
+  const [modalRating, setModalRating] = useState(0);
+  const [modalReviewTitle, setModalReviewTitle] = useState("");
+  const [modalReviewContent, setModalReviewContent] = useState("");
+
+  const isSubmitDisabled = modalRating === 0;
+    // Debounced input handlers
+    const handleReviewTitleChange = debounce((value) => {
+      setReviewTitle(value);
+    }, 300);
+  
+    const handleReviewContentChange = debounce((value) => {
+      setReviewContent(value);
+    }, 300);
+  
+    // Cek apakah rating sudah dipilih, dan judul atau isi ulasan bisa kosong
+    // const isSubmitDisabled = rating === 0 ;
+  
+    return (
+      showReviewModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-2xl p-6 w-[500px] max-w-[90%]">
         <h2 className="text-xl font-semibold mb-4">Write a review</h2>
-        
+
         <div className="mb-4">
           <div className="flex gap-2 mb-4">
             {[1, 2, 3, 4, 5].map((star) => (
               <button
                 key={star}
-                onClick={() => setRating(star)}
+                onClick={() => setModalRating(star)}
                 className="text-2xl text-yellow-400"
               >
-                {star <= rating ? "★" : "☆"}
+                {star <= modalRating ? "★" : "☆"}
               </button>
             ))}
           </div>
@@ -132,66 +168,104 @@ const Review = () => {
             <input
               type="text"
               placeholder="Review Title"
-              value={reviewTitle}
-              onChange={(e) => setReviewTitle(e.target.value)}
-              className="w-full p-2 border rounded-lg mb-2"
+              value={modalReviewTitle}
+              onChange={(e) => setModalReviewTitle(e.target.value)}
+              className="w-full p-2 border rounded-[10px] mb-2"
             />
           </div>
           <textarea
             placeholder="Tell us about your experience..."
-            value={reviewContent}
-            onChange={(e) => setReviewContent(e.target.value)}
-            className="w-full p-2 border rounded-lg h-32"
+            value={modalReviewContent}
+            onChange={(e) => setModalReviewContent(e.target.value)}
+            className="w-full p-2 border rounded-[10px] h-32"
           />
         </div>
+
         <div className="flex justify-end gap-2">
-          <button 
+          <button
             onClick={() => setShowReviewModal(false)}
-            className="px-4 py-2 rounded-lg bg-gray-200"
+            className="px-4 py-2 rounded-[20px] bg-gray-200"
           >
             Cancel
           </button>
-          <button 
-            className="px-4 py-2 rounded-lg bg-pink-400 text-white"
+
+          <button
+            onClick={() => {
+              addReview({
+                author: "New User",
+                rating: modalRating,
+                title: modalReviewTitle,
+                content: modalReviewContent,
+              });
+              setShowReviewModal(false);
+            }}
+            disabled={isSubmitDisabled}
+            className={`px-4 py-2 rounded-[20px] text-white ${
+              isSubmitDisabled ? "bg-gray-300 cursor-not-allowed" : "bg-pink-400"
+            }`}
           >
             Submit review
-          </button>
+            </button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  );
+      )
+    );
+  };
 
   return (
     <div className="min-h-screen bg-purple-50">
       <Header />
-      <main className="max-w-4xl mx-auto p-6">
-        <section className="rating-card mb-8">
-          <h2 className="rating-title">Rating</h2>
-          <div className="rating-summary">
-            <div className="rating-score">
-              <span className="score">{calculateAverageRating()}</span>
-              <span className="star-large">★</span>
-            </div>
-            <p className="review-count">
-              Based on {ratings.reduce((acc, curr) => acc + curr.count, 0)} reviews
-            </p>
-          </div>
-          <div className="rating-bars">
-            {ratings.map((rating) => (
-              <div key={rating.stars} className="rating-bar-row">
-                <div className="star-container">
-                  {renderStars(rating.stars)}
-                </div>
-                <div className="progress-bar">
-                  <div
-                    className="progress-fill"
-                    style={{ width: `${(rating.count / 150) * 100}%` }}
-                  />
-                </div>
-                <span className="rating-count">{rating.count}</span>
+      <div className='rating-container'>
+        <main className="max-w-4xl mx-auto p-6">
+          <section className="rating-card mb-8">
+            <h2 className="rating-title">Rating</h2>
+            <div className="rating-summary">
+              <div className="rating-score">
+                <span className="score">{calculateAverageRating()}</span>
+                <span className="star-large">★</span>
               </div>
+              <p className="review-count">
+                Based on {ratings.reduce((acc, curr) => acc + curr.count, 0)} reviews
+              </p>
+            </div>
+            <div className="rating-bars">
+              {ratings.map((rating) => (
+                <div key={rating.stars} className="rating-bar-row">
+                  <div className="star-container">
+                    {renderStars(rating.stars)}
+                  </div>
+                  <div className="progress-bar">
+                    <div className="progress-fill" style={{ width: `${(rating.count / 150) * 100}%` }} />
+                    </div>
+                    <span className="rating-count">{rating.count}</span>
+                  </div>,
+                  <p className="review-count">
+                    Based on {ratings.reduce((acc, curr) => acc + curr.count, 0)} reviews
+                  </p>))}
+            </div>
+            <div className="rating-bars">
+              {ratings.map((rating) => (
+                <div key={rating.stars} className="rating-bar-row">
+                  <div className="star-container">
+                    {renderStars(rating.stars)}
+                  </div>
+                  <div className="progress-bar">
+                    <div
+                      className="progress-fill"
+                      style={{ width: `${(rating.count / 150) * 100}%` }} />
+                  </div>
+                  <span className="rating-count">{rating.count}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section>
+            {reviews.map((review, index) => (
+              <ReviewCard key={review.id} review={review} index={index} />
             ))}
-          </div>
+
         </section>
 
         <section>
@@ -200,16 +274,13 @@ const Review = () => {
           ))}
         </section>
 
-        <button
-          onClick={() => setShowReviewModal(true)}
-          className="button"
-        >
+        <button onClick={() => setShowReviewModal(true)} className="button">
           <span className="text-xl">✎</span>
           Write a review
         </button>
         {showReviewModal && <ReviewModal />}
       </main>
-      <Footer />
+    </div><Footer />
     </div>
   );
 };

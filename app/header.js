@@ -1,17 +1,52 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+
 import "../styles/header.css";
 import Link from "next/link";
 
+
 const Header = () => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [username, setUsername] = useState("Guest");
 
   const toggleDropdown = () => {
     console.log("Dropdown toggled"); // Debugging
     setDropdownVisible(!dropdownVisible);
   };
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        try {
+          const response = await fetch("http://localhost:8080/api/user/me", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+  
+          if (response.ok) {
+            const userData = await response.json();
+            console.log("User data:", userData);
+            setUsername(userData.username);
+          } else {
+            console.error("Failed to fetch user profile");
+          }
+        } catch (error) {
+          console.error("Error fetching user profile:", error);
+        }
+      }
+    };
+  
+    fetchUserProfile();
+  }, []);
+  const handleLogout = () => {
+    // Hapus token dari localStorage
+    localStorage.removeItem("token");
 
+    // Redirect ke halaman login
+    window.location.href = "/";
+  };
   return (
     <header>
       <div className="navbar">
@@ -21,7 +56,7 @@ const Header = () => {
         <nav>
           <ul>
             <li>
-              <a href="/homepage" id="home" className="nav-link active">
+              <a href="/customer/homepage" id="home" className="nav-link active">
                 Home
               </a>
             </li>
@@ -52,7 +87,7 @@ const Header = () => {
           <div className="user-profile">
             <li>
               <a className="username" id="username" onClick={toggleDropdown}>
-                Khansarz
+              {username}
               </a>
               <div
                 className={`dropdown-content ${
@@ -60,7 +95,7 @@ const Header = () => {
                 }`}
               >
                 <a href="/notification">Notification</a>
-                <a href="/">Log Out</a>
+                <a href="/" onClick={handleLogout}>Log Out</a>
               </div>
             </li>
           </div>

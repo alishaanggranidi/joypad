@@ -123,7 +123,9 @@ const VipRoom = () => {
                         <p className="room-price">Rp. 35.000/hour</p>
                     </div>
                     <div>
-                        <button className="book-btn">BOOK</button>
+                        <Link href="/booking-form">
+                            <button className="book-btn">BOOK</button>
+                        </Link>
                     </div>
                 </div>
                 <div className="facilities">

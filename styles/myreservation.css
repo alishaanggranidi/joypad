@@ -1,0 +1,91 @@
+
+.main-card {
+    background-color: white;
+    border-radius: 30px;
+    padding: 50px;
+    margin: 90px 100px;
+    height: 590px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    color: #B193B0;
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: bold;
+}
+
+.reservation-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 15%);
+    gap: 15px;
+    margin-top: 25px;
+    justify-content: center;
+}
+
+.grid-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;    
+    text-align: center;     
+}
+
+.label {
+    color: #B193B0;
+    font-size: 20px;
+    font-weight: 548;
+}
+
+.value {
+    color: #B193B0;
+    font-size: 16px;
+}
+
+.value.success {
+    color: #4CAF50;
+}
+
+@media (max-width: 768px) {
+    .reservation-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .main-card {
+        margin: 20px 10px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .reservation-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .main-card {
+        margin: 10px;
+        padding: 15px;
+    }
+}
+
+.Extends-btn {
+    background: #a98eb2;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 0.55rem 1rem;
+    margin-top: 10px;
+    margin-left: 45px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    justify-content: center;
+    align-items: center;    
+    text-align: center; 
+    display: flex;
+  }
+
+  
+  

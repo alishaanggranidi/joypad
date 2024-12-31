@@ -89,10 +89,19 @@ export default function HomePage() {
               </div>
             )}
           </div>
-          <button id="find" className="find-room-button">
-            <Link href="/find-room" className="find-room-link">
-              Find Room
-            </Link>
+          <button
+            id="find"
+            className="find-room-button"
+            onClick={() => {
+            const startDateTime = `${selectedDate.toISOString().split("T")[0]}T${fromTime}:00`;
+            const endDateTime = `${selectedDate.toISOString().split("T")[0]}T${untilTime}:00`;
+
+            const query = `?startDateTime=${startDateTime}&endDateTime=${endDateTime}`;
+
+            window.location.href = `/find-room${query}`;
+            }}
+>
+            Find Room
           </button>
         </div>
       </section>

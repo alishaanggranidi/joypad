@@ -26,7 +26,7 @@ header {
   display: flex;
   height: 85px;
   width: 100%;
-  position: relative;
+  position: fixed;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;

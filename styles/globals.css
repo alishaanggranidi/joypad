@@ -110,7 +110,7 @@ nav ul li a {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 100px;
   background: #e5d3eb;
   width: 95%;
   max-height: 70px;
@@ -238,6 +238,7 @@ display: flex;
 flex-direction: column;
 }
 
+
 .reservation-bar {
   display: flex;
   justify-content: space-between;
@@ -304,5 +305,110 @@ flex-direction: column;
   background-repeat: no-repeat;
   background-position: right 10px center;
   background-size: 12px;
+}
+
+.rating-summary {
+  flex: 1;
+  padding: 20px;
+  background-color: #f5eefc;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.rating-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.rating-score {
+  font-weight: bold;
+  color: #673ab7;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rating-reviews {
+  font-size: 1rem;
+  color: #555;
+  margin-top: 10px;
+}
+
+.nilai-rating {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-right: 10px;
+  color: #3f3f46;
+}
+
+.stars {
+  font-size: 2rem;
+  color: gold;
+}
+
+.review-count {
+  font-size: 1rem;
+  position: relative;
+  color: #3f3f46;
+}
+
+.review-based {
+  font-size: 1rem;
+
+}
+
+.rating-breakdown {
+  margin-top: -100px;
+  margin-left: 350px;
+}
+
+.breakdown-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.stars-row {
+  font-size: 1rem;
+  color: gold;
+  width: 80px;
+  text-align: right;
+}
+
+.bar-container {
+  background-color: #e0e0e0;
+  height: 10px;
+  flex: 1;
+  margin-left: 0 10px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.bar-fill {
+  background-color: #f06292;
+  height: 100%;
+  border-radius: 5px;
+}
+
+.review-count-row {
+  font-size: 0.9rem;
+  color: #555;
+  width: 30px;
+  text-align: left;
+}
+
+/* Kontainer Utama */
+.rating-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  background-color: #f5eefc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
 }
 
